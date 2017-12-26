@@ -61,14 +61,14 @@ function drawMenu() {
 
   textFont('24pt Pacifico');
   text('PULSA',100,220);
-  textColor("#136aff");
+  textColor("#ff00f4");
   text('W',235,220);
   textColor("#ffffff");
   text('PARA EMPEZAR',295,220);
 
   text('CONTROLES',200,300);
   if(controlActual == mouse_control) {
-    textColor("#ff00f4");
+    textColor("#136aff");
   } else {
     textColor("#ffffff");
   }
@@ -78,7 +78,7 @@ function drawMenu() {
   textColor("#ffffff");
   text('/',288,370);
   if(controlActual == keyboard_control) {
-    textColor("#ff00f4");
+    textColor("#136aff");
   } else {
     textColor("#ffffff");
   }

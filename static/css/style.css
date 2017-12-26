@@ -14,7 +14,7 @@
   }
 
   #canvas {
-    background:url(../static/img/bgImage.jpg);
+    background:url(../img/bgImage.jpg);
     border:1px solid #ccc;
     top:50%;
     left:50%;
