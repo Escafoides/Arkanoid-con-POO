@@ -1,0 +1,24 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>Arkanoid</title>
+	<link rel="stylesheet" type="text/css" href="../static/css/style.css">
+	<script src="../static/js/definitions.js"></script>
+	<script src="../static/js/gameController.js"></script>
+</head>
+<body onLoad="run()"
+  onkeydown="actualizarEstadoTeclado(event)"
+  onkeyup="borrarEstadoTeclado(event)"
+  onkeypress="ponerEnPausa(event)">
+<canvas id="canvas" width="640" height="480"
+  onmousedown="ratonDown(event)"
+  onmouseup="ratonUp(event)"
+  onmousemove="ratonMove(event)"
+  onclick="ratonClick(event)">
+Su navegador no permite utilizar canvas.
+</canvas>
+<script>
+var ctx = document.getElementById("canvas").getContext("2d");
+</script>
+</body>
+</html>
