@@ -1,4 +1,4 @@
 # Arkanoid1
-Arkanoid para desarrollo de interfaces sin PO
+Arkanoid para desarrollo de interfaces con POO
 
-Empezando la ayuda
+Juego de arkanoid desarrollado en JavaScript con programacion orientada a onjetos
