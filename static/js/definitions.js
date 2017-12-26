@@ -123,7 +123,7 @@ function noCursor() {
 
     function ArkanoidDefault() {
       //Fuente por defecto
-      textFont('12pt Arial');
+      textFont('12pt Pacifico');
       // Color por defecto
       textColor('#ffffff');
       // Color del borde por defecto

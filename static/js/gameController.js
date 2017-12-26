@@ -3,9 +3,9 @@ const pantallaMenu  = 0;
 const pantallaJuego  = 1;
 const pantallaPuntuacion = 2;
 
-var gameStart = false;
-
-var pantallaActual = pantallaMenu;
+var gameStart            = false;
+var generacionProcedural = true;
+var pantallaActual       = pantallaMenu;
 
 // Tipo de Control
 const mouse_control    = 0;
@@ -33,7 +33,7 @@ function init() {
 }
 
 function draw() {
-  textFont("10pt Arial");
+  textFont("10pt Pacifico");
 
   switch(pantallaActual) {
     case pantallaMenu:  drawMenu(); break;
@@ -56,17 +56,17 @@ function updateMenu() {
 }
 
 function drawMenu() {
-  textFont('34pt Arial');
-  text('ARKANOID',200,130);
+  textFont('34pt Pacifico');
+  text('ARKANOID',180,130);
 
-  textFont('24pt Arial');
-  text('PULSA',120,220);
+  textFont('24pt Pacifico');
+  text('PULSA',100,220);
   textColor("#136aff");
   text('W',235,220);
   textColor("#ffffff");
-  text('PARA EMPEZAR',275,220);
+  text('PARA EMPEZAR',295,220);
 
-  text('CONTROLES',220,300);
+  text('CONTROLES',200,300);
   if(controlActual == mouse_control) {
     textColor("#ff00f4");
   } else {
@@ -74,7 +74,7 @@ function drawMenu() {
   }
   text('M',190,370);
   textColor("#ffffff");
-  text('ouse',217,370);
+  text('ouse',227,370);
   textColor("#ffffff");
   text('/',288,370);
   if(controlActual == keyboard_control) {
@@ -82,9 +82,9 @@ function drawMenu() {
   } else {
     textColor("#ffffff");
   }
-  text('K',300,370);
+  text('K',310,370);
   textColor("#ffffff");
-  text('eyboard',322,370);
+  text('eyboard',342,370);
 }
 
 function initPelota() {
@@ -326,20 +326,20 @@ function drawGame() {
 
 //Dibujar la Puntuacion
 function drawPuntuacion() {
-  textFont('34pt Arial');
+  textFont('34pt Pacifico');
   text('ARKANOID',200,180);
 
-  textFont('24pt Arial');
+  textFont('24pt Pacifico');
   text('Puntuacion:',130,280);
   text(puntuacion,350,280);
 
 
   text('PULSA',80,380);
-  textFont('30pt Arial');
+  textFont('30pt Pacifico');
   textColor('#ff00f4');
   text('F5',190,380);
   textColor('#ffffff');
-  textFont('24pt Arial');
+  textFont('24pt Pacifico');
   text('VOLVER A EMPEZAR',247,380);
 
 }
@@ -352,66 +352,97 @@ function update() {
   }
 }
 
-var ladrillosProcedural;
+var ladrillosProcedural1 = (generacionProcedural) ? generarProcLadrillos(1): "";
+var ladrillosProcedural2 = (generacionProcedural) ? generarProcLadrillos(2): "";
+var ladrillosProcedural3 = (generacionProcedural) ? generarProcLadrillos(3): "";
 
-function generarProcLadrillos(){
+function generarProcLadrillos(nivel){
   var ladrillosNivelProcAux;
-  ladrillosNivelProcAux =[[0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-             [0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-             [0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-             [0,0,0,0,0,0,0,0,0,0,0,0,0,0]];
-  for (var i = 4; i < 10; i++){
-    var ladProd = [0,1];
-    for (var j = 0; j < 14; j++){
-      var tipoladrillo = Math.floor((Math.random() * 2) + 1);
-      ladProd[j] = tipoladrillo;
-    }
-    ladrillosNivelProcAux.push(ladProd);
+  switch (nivel){
+  case 1: 	ladrillosNivelProcAux =[[0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+						     	[0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+						     	[0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+						     	[0,0,0,0,0,0,0,0,0,0,0,0,0,0]];
+	  		for (var i = 4; i < 10; i++){
+	  			var ladProd = [0,1];
+	  			for (var j = 0; j < 14; j++){
+	  				var tipoladrillo = Math.floor((Math.random() * 2) + 1);
+	  				ladProd[j] = tipoladrillo;
+	  			}
+	  			ladrillosNivelProcAux.push(ladProd);
+	  		}
+	  		break;
+	  		
+  case 2: 	ladrillosNivelProcAux =[[0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+						     	[0,0,0,0,0,0,0,0,0,0,0,0,0,0]];
+	  		for (var i = 2; i < 10; i++){
+				var ladProd = [0,1];
+				for (var j = 0; j < 14; j++){
+					var tipoladrillo = Math.floor((Math.random() * 3) + 1);
+					ladProd[j] = tipoladrillo;
+				}
+				ladrillosNivelProcAux.push(ladProd);
+			}
+			break;
+			
+  case 3: 	ladrillosNivelProcAux =[[0,0,0,0,0,0,0,0,0,0,0,0,0,0]];
+			for (var i = 1; i < 10; i++){
+				var ladProd = [0,1];
+				for (var j = 0; j < 14; j++){
+					var tipoladrillo = Math.floor((Math.random() * 3) + 1);
+					ladProd[j] = tipoladrillo;
+				}
+				ladrillosNivelProcAux.push(ladProd);
+			}
+			break;
+  
   }
-  ladrillosProcedural = ladrillosNivelProcAux;
+  return ladrillosNivelProcAux;
 }
 
 //Niveles
 
 //cuadrados
-var CantidadLadrillosNivel1  = 98;
-var ladrillosNivel1 = [[0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-                       [0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-                       [0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-                       [2,2,2,2,2,2,3,3,2,2,2,2,2,2],
-                       [1,1,1,1,1,1,2,2,1,1,1,1,1,1],
-                       [1,1,1,1,1,1,2,2,1,1,1,1,1,1],
-                       [1,1,1,1,1,1,2,2,1,1,1,1,1,1],
-                       [1,1,1,1,1,1,2,2,1,1,1,1,1,1],
-                       [1,1,1,1,1,1,2,2,1,1,1,1,1,1],
-                       [2,2,2,2,2,2,3,3,2,2,2,2,2,2]];
+var CantidadLadrillosNivel1 = (generacionProcedural) ? 84 : 98;
+
+
+var ladrillosNivel1 = (generacionProcedural) ? ladrillosProcedural1 :  [[0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+												                        [0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+												                        [0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+												                        [2,2,2,2,2,2,3,3,2,2,2,2,2,2],
+												                        [1,1,1,1,1,1,2,2,1,1,1,1,1,1],
+												                        [1,1,1,1,1,1,2,2,1,1,1,1,1,1],
+												                        [1,1,1,1,1,1,2,2,1,1,1,1,1,1],
+												                        [1,1,1,1,1,1,2,2,1,1,1,1,1,1],
+												                        [1,1,1,1,1,1,2,2,1,1,1,1,1,1],
+												                        [2,2,2,2,2,2,3,3,2,2,2,2,2,2]];
 
 //corazon
- var CantidadLadrillosNivel2  = 126;
- var ladrillosNivel2 = [[0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-                       [2,2,2,2,2,2,2,2,2,2,2,2,2,2],
-                       [2,1,1,1,2,2,1,2,2,1,1,1,1,2],
-                       [2,1,1,2,2,2,3,2,2,2,1,1,1,2],
-                       [2,1,1,2,2,3,3,3,2,2,1,1,1,2],
-                       [2,1,1,2,3,3,3,3,3,2,1,1,1,2],
-                       [2,1,1,1,2,3,3,3,2,1,1,1,1,2],
-                       [2,1,1,1,1,2,3,2,1,1,1,1,1,2],
-                       [2,1,1,1,1,1,2,1,1,1,1,1,1,2],
-                       [2,2,2,2,2,2,2,2,2,2,2,2,2,2]];
+var CantidadLadrillosNivel2 = (generacionProcedural) ? 112 : 126;
+ var ladrillosNivel2 = (generacionProcedural) ? ladrillosProcedural2 : [[0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+												                        [2,2,2,2,2,2,2,2,2,2,2,2,2,2],
+												                        [2,1,1,1,2,2,1,2,2,1,1,1,1,2],
+												                        [2,1,1,2,2,2,3,2,2,2,1,1,1,2],
+												                        [2,1,1,2,2,3,3,3,2,2,1,1,1,2],
+												                        [2,1,1,2,3,3,3,3,3,2,1,1,1,2],
+												                        [2,1,1,1,2,3,3,3,2,1,1,1,1,2],
+												                        [2,1,1,1,1,2,3,2,1,1,1,1,1,2],
+												                        [2,1,1,1,1,1,2,1,1,1,1,1,1,2],
+												                        [2,2,2,2,2,2,2,2,2,2,2,2,2,2]];
 
 
 //rombo
- var CantidadLadrillosNivel3  = 112;
- var ladrillosNivel3 = [[0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-                       [1,1,1,2,1,2,2,2,2,1,2,1,1,1],
-                       [1,1,2,1,2,1,1,1,1,2,1,2,1,1],
-                       [1,2,1,2,1,0,0,0,0,1,2,1,2,1],
-                       [2,1,2,1,0,2,2,2,2,0,1,2,1,2],
-                       [1,2,1,0,2,2,3,3,2,2,0,1,2,1],
-                       [2,1,2,1,0,2,2,2,2,0,1,2,1,2],
-                       [1,2,1,2,1,0,0,0,0,1,2,1,2,1],
-                       [1,1,2,1,2,1,1,1,1,2,1,2,1,1],
-                       [3,3,3,3,3,3,3,3,3,3,3,3,3,3]];
+ var CantidadLadrillosNivel3 = (generacionProcedural) ? 126 : 112;
+ var ladrillosNivel3 = (generacionProcedural) ? ladrillosProcedural3 :[[0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+												                       [1,1,1,2,1,2,2,2,2,1,2,1,1,1],
+												                       [1,1,2,1,2,1,1,1,1,2,1,2,1,1],
+												                       [1,2,1,2,1,0,0,0,0,1,2,1,2,1],
+												                       [2,1,2,1,0,2,2,2,2,0,1,2,1,2],
+												                       [1,2,1,0,2,2,3,3,2,2,0,1,2,1],
+												                       [2,1,2,1,0,2,2,2,2,0,1,2,1,2],
+												                       [1,2,1,2,1,0,0,0,0,1,2,1,2,1],
+												                       [1,1,2,1,2,1,1,1,1,2,1,2,1,1],
+												                       [3,3,3,3,3,3,3,3,3,3,3,3,3,3]];
 
  // Primer Nivel
  var CantidadLadrillosNivel = CantidadLadrillosNivel1;

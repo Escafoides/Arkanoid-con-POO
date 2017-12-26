@@ -1,3 +1,10 @@
+@font-face {
+  font-family: 'Pacifico';
+    src:    url('../fonts/Pacifico.woff');
+    src:    url('../fonts/Pacifico.ttf');
+
+}  
+  
   * {
     margin:0;
     padding:0;
