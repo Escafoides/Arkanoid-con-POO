@@ -3,7 +3,6 @@
 // Variables de entorno
 var canvas = null; 	  //el objeto canvas
 var ctx = null;   // el contexto del canvas
-var CantidadFrames = 0;   // Frame count
 
 /* INPUT
 -----------------------------------------*/
@@ -11,8 +10,6 @@ var CantidadFrames = 0;   // Frame count
 // input Raton 
 var ratonX      = 0;
 var ratonY      = 0;
-var ratonClickX = 0;
-var ratonClickY = 0;
 var ratonClick  = false;
 
 // input Teclado 
@@ -27,29 +24,24 @@ var	TECLA_P     = false;
 
 
 
-// Get raton X and Y
+// Coger la posicion del raton en movimiento
 function ratonMove(event) {
   ratonX = event.clientX - canvas.offsetLeft;
   ratonY = event.clientY - canvas.offsetTop;
 }
 
-// Get raton click X and Y
-function ratonClick(event) {
-  ratonClickX = event.clientX - canvas.offsetLeft;
-  ratonClickY = event.clientY - canvas.offsetTop;
-}
 
-// Set raton click true
+// Hemos hecho click
 function ratonDown(event) {
   ratonClick = true;
 }
 
-// Set raton click false
+// Hemos dejado de hacer click
 function ratonUp(event) {
   ratonClick = false;
 }
 
-// Get keyboard press buttons
+// Pulsamos las teclas
 function actualizarEstadoTeclado(event) {
   TECLA = event.keyCode;
   if(TECLA == 39) TECLA_RIGHT = true;
@@ -60,7 +52,7 @@ function actualizarEstadoTeclado(event) {
   if(TECLA == 32) TECLA_SPACE = true;
 }
 
-// Clear keybord states
+// Cambiamos los estados de las teclas
 function borrarEstadoTeclado(event) {
   TECLA = event.keyCode;
   if(TECLA == 39) TECLA_RIGHT = false;
@@ -71,6 +63,7 @@ function borrarEstadoTeclado(event) {
   if(TECLA == 32) TECLA_SPACE = false;
 }
 
+//Poner en pausa el juego
 function ponerEnPausa(event){
 	TECLA = event.keyCode;
 	console.log(TECLA);
@@ -80,17 +73,17 @@ function ponerEnPausa(event){
 }
 
 
-// Set text font
+// Cambiar la fuente
 function textFont(font) {
   ctx.font = font;
 }
 
-// Set text color
+// color de la fuente (y lineas)
 function textColor(color) {
   ctx.fillStyle = color;
 }
 
-// Draw text
+// Dibujar texto
 function text(str, x, y) {
       ctx.fillText(str, x, y);
 }
@@ -121,15 +114,7 @@ function noCursor() {
         ctx.stroke();
     }
 
-    function ArkanoidDefault() {
-      //Fuente por defecto
-      textFont('12pt Pacifico');
-      // Color por defecto
-      textColor('#ffffff');
-      // Color del borde por defecto
-      borderColor('#fff');
-    }
-
+ 
     function clear() {
       ctx.clearRect(0,0,canvas.width, canvas.height);
       ctx.beginPath();
@@ -142,7 +127,6 @@ function noCursor() {
   			time += 15;
   			var diff = (new Date().getTime() - tiempoNow) - time;
   			clear();
-  			ArkanoidDefault();
   			update(); 	   // Update
   			draw(); 	   // Draw
   			window.setTimeout(timer, (15 - diff));
