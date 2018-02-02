@@ -4,7 +4,7 @@ const pantallaJuego  = 1;
 const pantallaPuntuacion = 2;
 
 var gameStart            = false;
-var generacionProcedural = true;
+var generacionProcedural = false;
 var pantallaActual       = pantallaMenu;
 
 // Tipo de Control
@@ -101,15 +101,15 @@ function drawPelota() {
 
 function updatePelota() {
 
-  // Collisions with game nivel
+  // Colision con paredes
   if(pelota.x + pelota.dx + pelota.radius > canvas.width || pelota.x + pelota.dx - pelota.radius < 0)  pelota.dx = -pelota.dx;
-  // Collissions with ladrillos
+  // Colision con ladrillos
   rowheight = ladrillos.height + ladrillos.padding;
   colwidth = ladrillos.width + ladrillos.padding;
   row = Math.floor(pelota.y/rowheight);
   col = Math.floor(pelota.x/colwidth);
 
-  // Pelota colision con ladrillo
+  // Colision pelota con ladrillo
   if (pelota.y < ladrillos.rows * rowheight && row >= 0 && col >= 0 && ladrillosNivel[row][col] == 1) {
     pelota.dy = -pelota.dy;
     ladrillosNivel[row][col] = 0;
@@ -117,14 +117,14 @@ function updatePelota() {
     ladrillosDestruidos++;
   }
 
-  // Pelota colision con roca
+  // Colision pelota con roca
   if (pelota.y < ladrillos.rows * rowheight && row >= 0 && col >= 0 && ladrillosNivel[row][col] == 2) {
     pelota.dy = -pelota.dy;
     puntuacion += 50;
     ladrillosNivel[row][col] = 1;
   }
 
-  // Pelota colision con diamante
+  // Colision pelota con diamante
   if (pelota.y < ladrillos.rows * rowheight && row >= 0 && col >= 0 && ladrillosNivel[row][col] == 3) {
     pelota.dy = -pelota.dy;
     puntuacion += 50;
@@ -132,28 +132,27 @@ function updatePelota() {
   }
 
 
-  // Pelota colision
+  // Colision pelota
   if(pelota.y + pelota.dy - pelota.radius < 20) {
-    // Collision with top of the room
+    // Colicion con pared norte
     pelota.dy = -pelota.dy;
   } else {
-    // Collision with navecilla
+    // Colision con navecilla
     if(pelota.y + pelota.dy + pelota.radius > canvas.height - navecilla.height) {
-      // Collision with navecilla
+      // Colision con navecilla
       if(pelota.x + pelota.radius > navecilla.x && pelota.x - pelota.radius < navecilla.x + navecilla.width) {
         pelota.dy = -pelota.dy;
         pelota.dx = 8 * ((pelota.x-(navecilla.x+navecilla.width/2))/navecilla.width);
       } else {
-        // Collision with the bottom of the room - Water
+        // Collision con pared sur
         if(pelota.y + pelota.dy + pelota.radius > canvas.height) {
           // Restar vidas
           vidas -= 1;
           // Restar puntuacion
           puntuacion = (puntuacion - 100 < 0 ) ? 0 : puntuacion - 100;
-          // pegajoso pelota
           gameStart = false;
 
-          // Respawn pelota
+          // iniciar pelota
           initPelota();
         }
       }
@@ -187,10 +186,10 @@ function drawNavecilla() {
 function updateNavecilla() {
 
   if(controlActual == mouse_control) {
-    // Mouse control
+    // Control por raton
     navecilla.x = ratonX - (navecilla.width/2);
   } else {
-    // Keybord control
+    // Control por Teclado
     if(TECLA_LEFT) navecilla.x = navecilla.x - 10;
     if(TECLA_RIGHT) navecilla.x = navecilla.x + 10;
   }
@@ -218,14 +217,14 @@ function drawladrillos() {
                 (i * (ladrillos.height + ladrillos.padding)) + ladrillos.padding,
                     ladrillos.width, ladrillos.height,"#4a4add");
       }
-      // ladrillo Fuerte
+      // ladrillo roca
       if (ladrillosNivel[i][j] == 2) {
         rectangle((j * (ladrillos.width + ladrillos.padding)) + ladrillos.padding,
                 (i * (ladrillos.height + ladrillos.padding)) + ladrillos.padding,
                     ladrillos.width, ladrillos.height,"#d2921c");
       }
 
-      // ladrillo Fuerte
+      // ladrillo diamante
       if (ladrillosNivel[i][j] == 3) {
         rectangle((j * (ladrillos.width + ladrillos.padding)) + ladrillos.padding,
                 (i * (ladrillos.height + ladrillos.padding)) + ladrillos.padding,
@@ -238,7 +237,7 @@ function drawladrillos() {
 
 function updateladrillos() {
 
-  // Si las vidas es 0 GAME OVER
+  // Si las vidas son 0 GAME OVER
   if(vidas <= 0) {
     pantallaActual = pantallaPuntuacion;
   }
@@ -255,7 +254,7 @@ function updateladrillos() {
     }
   }
 
-  // Load nivels
+  // cargar nivels
   switch(nivel) {
     case 1:
       CantidadLadrillosNivel = CantidadLadrillosNivel1;
@@ -274,7 +273,7 @@ function updateladrillos() {
   if(nivel > 3) {
     pantallaActual = pantallaPuntuacion;
   }
-  // Init new nivel here
+  // Iniciar cada nivel
   initLadrillos();
 
 }
